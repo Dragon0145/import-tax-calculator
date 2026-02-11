@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>葉巻 輸入 金額計算（待機ゼロ）</title>
+  <meta name="description" content="葉巻の個人輸入にかかる関税・たばこ税・消費税などを概算。為替は自動取得。" />
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:24px;line-height:1.6}
+    .box{max-width:760px;margin:0 auto;padding:18px;border:1px solid #ddd;border-radius:12px}
+    label{display:block;margin-top:12px;font-weight:600}
+    input,select{width:100%;padding:10px;margin-top:6px;border:1px solid #ccc;border-radius:10px;font-size:16px}
+    button{margin-top:18px;padding:12px 14px;border:0;border-radius:12px;font-size:16px;cursor:pointer;width:100%}
+    .note{color:#444;font-size:14px;margin-top:12px}
+    .err{background:#ffecec;border:1px solid #ffb8b8;padding:10px;border-radius:10px;margin:12px 0}
+    table{width:100%;border-collapse:collapse;margin-top:14px}
+    th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;vertical-align:top}
+    .total{font-size:20px;font-weight:800}
+    .muted{color:#666}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>葉巻 輸入 金額計算（待機ゼロ）</h1>
+
+    <div id="errors" class="err" style="display:none;"></div>
+
+    <form id="calcForm">
+      <label>本数</label>
+      <input name="sticks" type="number" min="1" step="1" value="10" required>
+
+      <label>1本あたり重量 (g)</label>
+      <input name="weight_g" type="number" min="0.01" step="0.01" value="2.5" required>
+
+      <label>支払い通貨</label>
+      <select name="currency" required>
+        <option value="USD" selected>USD（米ドル）</option>
+        <option value="EUR">EUR（ユーロ）</option>
+        <option value="GBP">GBP（英ポンド）</option>
+        <option value="AUD">AUD（豪ドル）</option>
+        <option value="CAD">CAD（カナダドル）</option>
+        <option value="CHF">CHF（スイスフラン）</option>
+        <option value="CNY">CNY（中国人民元）</option>
+        <option value="HKD">HKD（香港ドル）</option>
+      </select>
+
+      <label>商品価格（外貨）</label>
+      <input name="item_price_foreign" type="number" min="0" step="0.01" value="80" required>
+
+      <label>送料（外貨）</label>
+      <input name="shipping_foreign" type="number" min="0" step="0.01" value="15" required>
+
+      <label>関税率（概算）</label>
+      <input name="duty_rate" type="number" min="0" max="1" step="0.001" value="0.16">
+
+      <details style="margin-top:14px;">
+        <summary style="cursor:pointer;font-weight:700;">詳細（為替手入力）</summary>
+        <p class="muted">通常は不要。自動取得が失敗した時だけ入力。</p>
+        <label>為替レート（円 / 外貨1）</label>
+        <input name="fx_rate_manual" type="number" min="0.0001" step="0.0001" placeholder="例: 150.25">
+      </details>
+
+      <button type="submit">計算する（為替は自動取得）</button>
+    </form>
+
+    <div id="result"></div>
+
+    <p class="note">
+      ※ 本サイトは概算です。実際の課税・レートと差が出る場合があります。<br>
+      ※ 為替は無料APIの参考レートです（取得できない場合は手入力）。
+    </p>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
