@@ -27,10 +27,10 @@
 
     <form id="calcForm">
       <label>本数</label>
-      <input name="sticks" type="number" min="1" step="1" value="10" required>
+      <input name="sticks" type="number" min="1" step="1" value="" required>
 
       <label>1本あたり重量 (g)</label>
-      <input name="weight_g" type="number" min="0.01" step="0.01" value="2.5" required>
+      <input name="weight_g" type="number" min="0.01" step="0.01" value="" required>
 
       <label>支払い通貨</label>
       <select name="currency" required>
@@ -48,7 +48,7 @@
       <input name="item_price_foreign" type="number" min="0" step="0.01" value="80" required>
 
       <label>送料（外貨）</label>
-      <input name="shipping_foreign" type="number" min="0" step="0.01" value="15" required>
+      <input name="shipping_foreign" type="number" min="0" step="0.01" value="" required>
 
       <label>関税率（概算）</label>
       <input name="duty_rate" type="number" min="0" max="1" step="0.001" value="0.16">
@@ -74,5 +74,6 @@
   <script src="./script.js"></script>
 </body>
 </html>
+
 
 
